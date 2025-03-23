@@ -10,6 +10,9 @@ import clerk from "@clerk/astro";
 // https://astro.build/config
 export default defineConfig({
   vite: {
+    server: {
+      allowedHosts: ["hardly-amusing-minnow.ngrok-free.app"],
+    },
     plugins: [tailwindcss()],
   },
   integrations: [clerk()],
