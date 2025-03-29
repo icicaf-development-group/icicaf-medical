@@ -1,7 +1,12 @@
 ---
-// src/pages/index.astro
 import background from "../assets/background.svg";
 import "../styles/global.css";
+import {
+  SignedIn,
+  SignedOut,
+  UserButton,
+  SignInButton,
+} from "@clerk/astro/components";
 ---
 
 <html lang="es">
@@ -9,7 +14,7 @@ import "../styles/global.css";
     <meta charset="utf-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} >
+    <meta name="generator" content={Astro.generator} />
     <title>Sistema Médico</title>
   </head>
   <body>
@@ -26,11 +31,61 @@ import "../styles/global.css";
     </header>
     <main>
       <img id="background" src={background.src} alt="" fetchpriority="high" />
+
+      <section>
+        <SignedOut>
+          <SignInButton mode="modal" asChild>
+            <button
+              class="items-center gap-4
+         bg-blue-600 hover:bg-blue-500 active:bg-blue-700
+         text-white font-semibold text-sm uppercase tracking-wide
+         px-8 py-3 rounded-lg shadow-md transition duration-200"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="3"
+                  d="M4 12h14M12 5l7 7-7 7"></path>
+              </svg>
+
+              <svg
+                fill="#ffffff"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+                ><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g
+                  id="SVGRepo_tracerCarrier"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"
+                  ><path
+                    d="M5,15v2H3V15ZM3,21H5V19H3Zm2-4v2H7V17Zm4-6H7v2H5v2H9ZM3,11v2H5V11Zm6,8H7v2h5V19H11V17H9ZM13,4H11V6h2Zm-2,7h2V8H11ZM4,9A1,1,0,0,1,3,8V4A1,1,0,0,1,4,3H8A1,1,0,0,1,9,4V8A1,1,0,0,1,8,9ZM5,7H7V5H5ZM21,4v8H19V9H16a1,1,0,0,1-1-1V4a1,1,0,0,1,1-1h4A1,1,0,0,1,21,4ZM19,5H17V7h2Zm2,11v4a1,1,0,0,1-1,1H16a1,1,0,0,1-1-1V17H11V13h2v2h1V11h2v4h4A1,1,0,0,1,21,16Zm-2,1H17v2h2Z"
+                  ></path></g
+                ></svg
+              >
+
+              Ingresar
+            </button>
+          </SignInButton>
+        </SignedOut>
+        <SignedIn>
+          <UserButton />
+        </SignedIn>
+      </section>
+
       <section class="hero">
-        <h1 class="mb-4 text-5xl tracking-tight font-extrabold">Sistema Médico</h1>
-        <h2 class="font-light text-gray-600 sm:text-3xl dark:text-gray-600">Bienvenido al Sistema Médico</h2>
+        <h1 class="mb-4 text-5xl tracking-tight font-extrabold">
+          Sistema Médico
+        </h1>
+        <h2 class="font-light text-gray-600 sm:text-3xl dark:text-gray-600">
+          Bienvenido al Sistema Médico
+        </h2>
         <p>Plataforma integral para la gestión de servicios médicos</p>
-        
+
         <div class="btn-container">
           <a href="/auth/login" class="btn primary">Iniciar Sesión</a>
           <a href="/auth/qr-login" class="btn secondary">Escanear Credencial</a>
@@ -48,63 +103,63 @@ import "../styles/global.css";
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Arial', sans-serif;
+    font-family: "Arial", sans-serif;
   }
 
   #background {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
-      filter: blur(100px);
-    }
-  
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    filter: blur(100px);
+  }
+
   body {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  background-color: #f8f9fa; /* opcional para evitar zonas blancas puras */
-}
-  
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #f8f9fa; /* opcional para evitar zonas blancas puras */
+  }
+
   header {
     background-color: #0077cc;
     color: white;
     padding: 1rem 2rem;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   }
-  
+
   nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
-  
+
   .logo {
     font-size: 1.5rem;
     font-weight: bold;
   }
-  
+
   .nav-links {
     display: flex;
     gap: 1.5rem;
   }
-  
+
   .nav-links a {
     color: white;
     text-decoration: none;
   }
-  
+
   main {
     flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: center; /* centra verticalmente */
-    align-items: center;     /* centra horizontalmente */
+    align-items: center; /* centra horizontalmente */
     padding: 2rem;
   }
-  
+
   .hero {
     text-align: center;
     margin-bottom: 2rem;
@@ -112,23 +167,22 @@ import "../styles/global.css";
     padding: 2rem;
     background: white;
     border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-    }
-  
-  
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  }
+
   h1 {
     font-size: 2.5rem;
     margin-bottom: 1rem;
     color: #333;
   }
-  
+
   .btn-container {
     display: flex;
     justify-content: center;
     gap: 1rem;
     margin-top: 2rem;
   }
-  
+
   .btn {
     padding: 0.75rem 1.5rem;
     border-radius: 4px;
@@ -136,18 +190,18 @@ import "../styles/global.css";
     font-weight: bold;
     transition: background-color 0.3s;
   }
-  
+
   .primary {
     background-color: #0077cc;
     color: white;
   }
-  
+
   .secondary {
     background-color: #f0f0f0;
     color: #333;
     border: 1px solid #ddd;
   }
-  
+
   footer {
     background-color: #333;
     color: white;

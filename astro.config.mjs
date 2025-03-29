@@ -2,6 +2,7 @@
 import { defineConfig } from "astro/config";
 
 import tailwindcss from "@tailwindcss/vite";
+import svgr from "vite-plugin-svgr";
 
 import node from "@astrojs/node";
 
@@ -13,7 +14,7 @@ export default defineConfig({
     server: {
       allowedHosts: ["hardly-amusing-minnow.ngrok-free.app"],
     },
-    plugins: [tailwindcss()],
+    plugins: [tailwindcss(),svgr()],
   },
   integrations: [clerk()],
   output: "server",
